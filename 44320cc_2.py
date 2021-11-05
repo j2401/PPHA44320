@@ -1,11 +1,11 @@
 from numba.pycc import CC
 import numpy as np
-cc = CC('value_iter_2')
-@cc.export('iter_value_2', 'f8[:](f8[:,:], i4[:], i4[:], i4[:], f8[:], i4, f8)')
-def iter_value_2(m, x, y, z, d, N, DELTA):
+cc = CC('value_iter')
+@cc.export('iter_value', 'f8[:](f8[:,:], i4[:], i4[:], i4[:], f8[:], i4, f8)')
+def iter_value(m, x, y, z, d, N, DELTA):
     L = len(x)
     V = np.zeros(N)
-    def next(m, v,x, y, z, d, N, DELTA):
+    def next(m, v, x, y, z, d, N, DELTA):
         vnext = np.zeros((N,2))
         for i in range(L):
             value = m[y[i], x[i]] + DELTA * (d[i] * v[z[i]] + (1-d[i]) * v[z[i] +1])
